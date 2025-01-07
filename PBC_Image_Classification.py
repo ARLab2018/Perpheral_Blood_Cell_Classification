@@ -16,6 +16,15 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
 import matplotlib.pyplot as plt
 
+import argparse
+
+parser = argparse.ArgumentParser(description='PBC classifier')
+parser.add_argument('--dataset', type=str,
+        help='datasets')
+args = parser.parse_args()
+
+
+
 # Checking for GPU
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(f"\nUsing device: {device}\n")
@@ -24,7 +33,8 @@ print(f"\nUsing device: {device}\n")
 # Training Phase Below
 
 # Define dataset path
-dataset_path = "C:/Users/somuj/OneDrive/Desktop/CODE/PBC_dataset_normal_DIB"
+cur_dir = os.path.dirname(os.path.realpath(__file__))
+dataset_path = os.path.join(cur_dir, args.dataset)
 
 # Updated transformations for preprocessing
 transform = transforms.Compose([
